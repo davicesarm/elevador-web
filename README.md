@@ -1,36 +1,34 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Projeto Elevador - Frontend Next.js
 
-## Getting Started
+Este repositório contém a interface web do **Projeto Elevador**, desenvolvida em **Next.js** para consumir a API criada com **Spring Boot**.  
 
-First, run the development server:
+## Sobre  
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+Este frontend tem como objetivo:  
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- Fornecer uma interface visual e responsiva para interagir com o elevador.  
+- Consumir os dados em tempo real (ou próximo disso) da API.  
+- Facilitar o controle dos andares através de botões interativos.  
+- Servir como base para melhorias futuras, como atualização em tempo real com **Server-Sent Events** ou **WebSockets**.  
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Contexto  
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Este frontend foi construído para trabalhar junto com a API disponível no projeto:  
 
-## Learn More
+[**Projeto Elevador - Spring Boot**](https://github.com/davicesarm/elevador-springboot)
 
-To learn more about Next.js, take a look at the following resources:
+Enquanto o backend em **Java Spring Boot** é responsável por toda a lógica do elevador e controle do estado, este frontend em **Next.js** fornece uma interface amigável para que o usuário possa interagir com o sistema.  
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Funcionalidades  
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- Consulta periódica do estado do elevador através do endpoint `/status` da API.  
+- Botões para solicitar andares (endpoint `/addAndar`).  
+- Botão para reiniciar o elevador (endpoint `/reiniciar`)
+- Destaque visual para andares que já foram solicitados.  
+- Interface responsiva para desktop e mobile.  
 
-## Deploy on Vercel
+## Tecnologias Utilizadas  
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- [Next.js](https://nextjs.org/) – Framework React para aplicações web rápidas e modernas.  
+- [React](https://react.dev/) – Biblioteca para construção da interface de usuário.  
+- [Tailwind CSS](https://tailwindcss.com/) – Estilização responsiva e otimizada.  
