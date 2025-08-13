@@ -15,13 +15,14 @@ const defaultStatus: ElevadorStatus = {
 };
 
 export default function ElevadorDisplay() {
+  const apiUrl = process.env.NEXT_PUBLIC_API_URL;
   const [status, setStatus] = useState<ElevadorStatus>(defaultStatus);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const interval = setInterval(async () => {
       try {
-        const response = await fetch("http://localhost:8080/status", {
+        const response = await fetch(`${apiUrl}/status`, {
           cache: "no-store",
         });
         const data = await response.json();
@@ -47,7 +48,7 @@ export default function ElevadorDisplay() {
     }));
 
     try {
-      const response = await fetch("http://localhost:8080/addAndar", {
+      const response = await fetch(`${apiUrl}/addAndar`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ numero: andar }),
