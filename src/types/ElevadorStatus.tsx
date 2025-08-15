@@ -10,5 +10,5 @@ export interface ElevadorStatus {
 export type Direcao = "NEUTRO" | "SUBINDO" | "DESCENDO";
 
 type AndaresApertados = {
-  [key: number]: Direcao;
+  [key: number]: Direcao[];
 };

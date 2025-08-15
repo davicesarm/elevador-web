@@ -1,59 +1,43 @@
-import { ElevadorStatus } from "@/types/ElevadorStatus";
+import { FaCaretUp, FaCaretDown } from "react-icons/fa";
+import DirectionButton from "./DirectionButton";
+import { useContext } from "react";
+import { ElevadorContext } from "@/context/ElevadorContext";
 
-export default function ElevadorButton({
-  andar,
-  elevadorStatus,
-}: {
-  andar: number;
-  elevadorStatus: ElevadorStatus;
-}) {
-  const API_URL = process.env.NEXT_PUBLIC_API_URL;
-  if (elevadorStatus.andaresApertados === null) return;
+export default function ElevadorButton({ andar }: { andar: number }) {
+  const { status: elevadorStatus } = useContext(ElevadorContext);
 
-  const isApertado =
-    elevadorStatus.andaresApertados?.[andar]?.includes("NEUTRO");
   const isAndarAtual = elevadorStatus.andarAtual === andar;
-  const isParadoNoAndar =
-    elevadorStatus.paradoNoAndar && elevadorStatus.andarAtual === andar;
+  const isParadoNoAndar = elevadorStatus.paradoNoAndar && isAndarAtual;
 
-  let bgColorClass = "bg-white hover:bg-neutral-300 text-neutral-500";
   let borderColorClass = "border-neutral-300 hover:border-neutral-400";
-
-  if (isParadoNoAndar) {
-    bgColorClass = "bg-blue-500 text-white hover:bg-blue-600";
-  } else if (isApertado) {
-    bgColorClass = "bg-green-500 text-white hover:bg-green-600";
-  }
 
   if (isAndarAtual && !isParadoNoAndar) {
     borderColorClass = "border-blue-500";
   }
 
-  const handleClick = async (andar: number) => {
-    try {
-      const response = await fetch(`${API_URL}/addAndar`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ numero: andar }),
-      });
-
-      if (!response.ok) {
-        throw new Error("Falha ao adicionar andar.");
-      }
-    } catch (err) {
-      console.error("Erro ao adicionar andar:", err);
-    }
-  };
-
   return (
-    <button
-      key={andar}
-      onClick={() => handleClick(andar)}
-      className={`text-sm font-semibold cursor-pointer h-12 w-12 shadow-sm border rounded 
-                  ${bgColorClass}
-                  ${borderColorClass}
-                `}>
-      {andar}
-    </button>
+    <div
+      className={`flex text-sm font-semibold cursor-pointer h-14 w-14 shadow-sm border rounded ${borderColorClass}`}>
+      <DirectionButton
+        andar={andar}
+        direcao="NEUTRO"
+        className="w-1/2 border-r">
+        {andar}
+      </DirectionButton>
+      <div className="flex flex-col w-1/2">
+        <DirectionButton
+          andar={andar}
+          direcao="SUBINDO"
+          className="h-1/2 flex justify-center items-center border-b">
+          <FaCaretUp />
+        </DirectionButton>
+        <DirectionButton
+          andar={andar}
+          direcao="DESCENDO"
+          className="h-1/2 flex justify-center items-center">
+          <FaCaretDown />
+        </DirectionButton>
+      </div>
+    </div>
   );
 }
