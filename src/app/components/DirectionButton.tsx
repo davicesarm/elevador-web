@@ -31,6 +31,7 @@ export default function DirectionButton({
   }
 
   const handleClick = async (andar: number, direcao: Direcao) => {
+    adicionarAndar(andar, direcao);
     try {
       const response = await fetch(`${API_URL}/addAndar`, {
         method: "POST",
@@ -41,8 +42,6 @@ export default function DirectionButton({
       if (!response.ok) {
         throw new Error("Falha ao adicionar andar.");
       }
-
-      adicionarAndar(andar, direcao);
     } catch (err) {
       console.error("Erro ao adicionar andar:", err);
     }
